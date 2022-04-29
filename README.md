@@ -1,6 +1,8 @@
-# Empl
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 13.3.3.
+# ![](./src/assets/icons/icon-72x72.png) Company People Management
+
+Portable web application with integrated IndexedDB database build using Angular framework.
+![](./doc/pwa.png) ![](./doc/idb.png) 
 
 ## Development server
 
