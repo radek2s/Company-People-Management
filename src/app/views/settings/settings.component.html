@@ -1,0 +1,7 @@
+<div>
+    <mat-radio-group aria-label="Select an option" [(ngModel)]="activeDB">
+        <mat-radio-button value="indexeddb">IndexedDB</mat-radio-button>
+        <mat-radio-button value="mocked">Mocked</mat-radio-button>
+    </mat-radio-group>
+    <button mat-button (click)="selectDB()">Change DB</button>
+</div>

@@ -1,0 +1,42 @@
+<mat-card>
+    <mat-card-title>
+        <div class="flex flex-jc-between flex-al-center">
+            <span>{{department.name}}</span>
+            <span></span>
+            <button mat-icon-button class="employee-card--settings" [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editDepartment()">
+                    <mat-icon>edit</mat-icon>
+                    <span>Update</span>
+                </button>
+                <button mat-menu-item (click)="deleteDepartment()">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>
+                <button mat-menu-item (click)="loadEmployees()">
+                    <mat-icon>autorenew</mat-icon>
+                    <span>Load employees</span>
+                </button>
+                <button mat-menu-item (click)="addEmployee()">
+                    <mat-icon>groups</mat-icon>
+                    <span>Add employee</span>
+                </button>
+            </mat-menu>
+        </div>
+    </mat-card-title>
+    <mat-card-content>
+        <section>
+            <p *ngIf="department.description">{{department.description}}</p>
+        </section>
+        <section>
+            <h3>Employees</h3>
+            <mat-list *ngIf="employees && employees.length">
+                <mat-list-item *ngFor="let emp of employees">{{emp.name}} {{emp.surname}} - Joined {{emp.joined.toLocaleString()}}</mat-list-item>
+            </mat-list>
+            
+
+        </section>
+    </mat-card-content>
+</mat-card>

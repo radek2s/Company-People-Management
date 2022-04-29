@@ -1,0 +1,5 @@
+export { HomeComponent } from './home/home.component'
+export { EmployeesComponent} from './employees/employees.component'
+export { LocationsComponent} from './locations/locations.component'
+export { SettingsComponent } from './settings/settings.component'
+export { DepartmentsComponent } from './departments/departments.component'

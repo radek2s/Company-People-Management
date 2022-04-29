@@ -1,0 +1,17 @@
+<h1 mat-dialog-title class="dialog-header">
+    <span>Add Department</span>
+</h1>
+<div mat-dialog-content>
+    <mat-form-field>
+        <mat-label>Department name</mat-label>
+        <input matInput [(ngModel)]="department.name"/>
+    </mat-form-field>
+    <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input matInput [(ngModel)]="department.description"/>
+    </mat-form-field>
+</div>
+<div class="dialog-actions">
+    <button mat-button mat-flat-button color="primary" class="margin-xs" (click)="onNoClick()">Cancel</button>
+    <button mat-button mat-flat-button color="warn" class="margin-xs" (click)="onYesClick()">Save</button>
+</div>

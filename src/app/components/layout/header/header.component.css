@@ -1,0 +1,8 @@
+.mainbar-header {
+    display: flex;
+    justify-content: space-between;
+}
+.mainbar--logo,
+.mainbar--logo > img {
+    height: 100%;
+}

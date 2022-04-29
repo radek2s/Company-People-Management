@@ -1,0 +1,41 @@
+<header>
+    <mat-toolbar class="mainbar-header">
+        <div class="mainbar--logo">
+            <img src="./assets/h_herb.png">
+        </div>
+
+        <h1 class="mainbar--company-name">
+            Office management
+        </h1>
+        <span></span>
+
+        <button mat-icon-button class="mainbar--settings" [matMenuTriggerFor]="menu">
+            <mat-icon>home</mat-icon>
+        </button>
+
+        <mat-menu #menu="matMenu">
+            <button mat-menu-item (click)="navigateTo('')">
+                <mat-icon>space_dashboard</mat-icon>
+                <span>Main dashboard</span>
+            </button>
+            <button mat-menu-item (click)="navigateTo('employees')">
+                <mat-icon>groups</mat-icon>
+                <span>Empolyees</span>
+            </button>
+            <button mat-menu-item (click)="navigateTo('departments')">
+                <mat-icon>group_work</mat-icon>
+                <span>Departments</span>
+            </button>
+            <button mat-menu-item (click)="navigateTo('locations')">
+                <mat-icon>domain</mat-icon>
+                <span>Locations</span>
+            </button>
+            <button mat-menu-item (click)="navigateTo('settings')">
+                <mat-icon>build</mat-icon>
+                <span>Database settings</span>
+            </button>
+        </mat-menu>
+
+
+    </mat-toolbar>
+</header>

@@ -1,0 +1,1 @@
+export { IndexedDBDataSource } from './indexeddb'

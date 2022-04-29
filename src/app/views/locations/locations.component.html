@@ -1,0 +1,9 @@
+<div>
+    Locations
+    <button mat-button (click)="addLocation()">Add</button>
+
+    <p *ngIf="!!locations && locations.length">
+        <location-info-card *ngFor="let loc of locations" [location]="loc">
+        </location-info-card>
+    </p>
+</div>

@@ -1,1 +1,20 @@
 /* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+.flex {
+    display: flex;
+}
+.flex-jc-between {
+    justify-content: space-between;
+}
+.flex-al-center {
+    align-items: center;
+}
+
+.btn-floating {
+    margin-top: -25px;
+    padding-right: 25px;
+    float: right;
+}

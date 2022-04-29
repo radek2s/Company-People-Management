@@ -1,0 +1,22 @@
+<div>
+    Employees
+    <button mat-button (click)="loadEmployees()">Load</button>
+    <button mat-button (click)="getEmployees()">Load One</button>
+    
+    
+    <div *ngIf="!!employees && employees.length > 0">
+        <employee-info-card 
+            *ngFor="let emp of employees" 
+            [employee]="emp" 
+            (edit)="editEmployee($event)" 
+            
+        ></employee-info-card>
+    </div>
+
+    <div class="btn-floating">
+        <button mat-fab color="primary" (click)="addEmployee()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
+
+</div>

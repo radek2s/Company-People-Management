@@ -1,0 +1,29 @@
+<mat-card>
+    <mat-card-title>
+        <div class="flex flex-jc-between flex-al-center">
+            <span>{{employee.surname}}, {{employee.name}}</span>
+            <span></span>
+            <button mat-icon-button class="employee-card--settings" [matMenuTriggerFor]="menu">
+                <mat-icon>more_horiz</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu">
+                <button mat-menu-item (click)="editEmployee()">
+                    <mat-icon>edit</mat-icon>
+                    <span>Update</span>
+                </button>
+                <button mat-menu-item (click)="deleteEmployee()">
+                    <mat-icon>delete</mat-icon>
+                    <span>Delete</span>
+                </button>
+            </mat-menu>
+        </div>
+    </mat-card-title>
+    <mat-card-content>
+        <section>
+            <p><mat-icon>cake</mat-icon> {{employee.birthDate}}</p>
+            <p><mat-icon>home</mat-icon> {{employee.birthPlace}}</p>
+            <p><mat-icon>phone</mat-icon>{{employee.phoneNumber}}</p>
+            <p><mat-icon>mail</mat-icon>{{employee.email}}</p>
+        </section>
+    </mat-card-content>
+</mat-card>

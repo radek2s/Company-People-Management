@@ -1,0 +1,1 @@
+export type EmployeeRole = "principal" | "support" | "manager" | "leader" | "employee" | "other";

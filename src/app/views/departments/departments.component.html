@@ -1,0 +1,9 @@
+<div>
+    Departments
+    <button mat-button (click)="showEmployees(1)">ShowEmployees</button>
+
+    <p *ngIf="!!departments && departments.length">
+        <department-info-card *ngFor="let department of departments" [department]="department">
+        </department-info-card>
+    </p>
+</div>
