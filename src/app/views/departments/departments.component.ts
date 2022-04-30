@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { DepartmentCreatorDialogComponent } from "src/app/components/department/department-creator.component";
 import { Department } from "src/app/models/entities";
 import DataSourceService from "src/app/services/datasources";
 
@@ -15,7 +16,7 @@ export class DepartmentsComponent implements OnInit {
 
     constructor(
         private datasource: DataSourceService,
-        // private editorDialog: MatDialog
+        private editorDialog: MatDialog
     ) {}
 
     ngOnInit(): void {
@@ -31,6 +32,16 @@ export class DepartmentsComponent implements OnInit {
     showEmployees(departmentId: number) {
         this.datasource.getAllEmployeesInDepartment(departmentId).then(r => {
             console.log(r);
+        })
+    }
+
+    addDepartment() {
+        const dialogRef = this.editorDialog.open(DepartmentCreatorDialogComponent)
+        dialogRef.afterClosed().subscribe(dep => {
+            if(!!dep) {
+                this.datasource.addDepartmnet(dep)
+                this.datasource.getAllDepartments().then(d => this.departments = d)
+            }
         })
     }
 

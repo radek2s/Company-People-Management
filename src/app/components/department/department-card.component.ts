@@ -35,9 +35,9 @@ export class DepartmentInfoCardComponent {
 
     addEmployee() {
         const dialogRef = this.dialog.open(DepartmentEmployeeSelectorDialogComponent)
-        dialogRef.afterClosed().subscribe(id => {
-            if(id > -1) {
-                this.ds.addEmployeeToDepartment(id, this.department.id)
+        dialogRef.afterClosed().subscribe(user => {
+            if(!!user) {
+                this.ds.addEmployeeToDepartment(user.id, this.department.id, user.role)
             }
         })
 

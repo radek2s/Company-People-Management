@@ -1,8 +1,9 @@
 import { Injectable } from "@angular/core";
 import { Observable } from "rxjs";
 import { DepartmentEmployee } from "src/app/models/dto/department-employee";
-import { Employee } from "src/app/models/entities";
+import { Department, Employee } from "src/app/models/entities";
 import { Location } from "src/app/models/entities";
+import { EmployeeRole } from "src/app/models/types";
 import DataSource, { DataSourceState } from "./datasource.interface";
 import { IndexedDBDataSource } from "./modules";
 
@@ -80,6 +81,10 @@ export class DataSourceService {
         return this.datasource.getAllDepartments()
     }
 
+    public addDepartmnet(department: Department) {
+        this.datasource.addDepartment(department)
+    }
+
     public getAllLocations(): Promise<Location[]> {
         return this.datasource.getAllLocations()
     }
@@ -88,8 +93,8 @@ export class DataSourceService {
         return this.datasource.getAllEmployeesInDepartment(departmentId)
     }
 
-    public addEmployeeToDepartment(employeeId:number, departmentId: number) {
-        this.datasource.addEmployeeToDepartment(employeeId, departmentId)
+    public addEmployeeToDepartment(employeeId:number, departmentId: number, role: EmployeeRole) {
+        this.datasource.addEmployeeToDepartment(employeeId, departmentId, role)
     }
 
 }

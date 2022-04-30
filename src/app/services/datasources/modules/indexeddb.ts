@@ -1,6 +1,7 @@
 import { Observable, Subject } from "rxjs";
 import { DepartmentEmployee } from "src/app/models/dto/department-employee";
 import { Department, Employee, Location } from "src/app/models/entities";
+import { EmployeeRole } from "src/app/models/types";
 import DataSource, { DataSourceState } from "../datasource.interface";
 
 const DATABASE_VERSION = 1
@@ -8,7 +9,6 @@ const DATABASE_VERSION = 1
 const SCHEMAS = {
     EMPLOYEES: 'employees',
     EMPLOYEES_DEPARTMENTS_ACTIVITY: 'employees_departments_activity',
-    EMPLOYEES_ROLES: 'employees_roles_activity',
     DEPARTMENTS: 'departments',
     DEPARTMENTS_LOCATIONS: 'departments_locations',
     LOCATIONS: 'locations'
@@ -171,6 +171,7 @@ export class IndexedDBDataSource implements DataSource {
                         de.name = empList[i].name
                         de.surname = empList[i].surname
                         de.joined = empData[i].joined
+                        de.role = empData[i].role
                         result.push(de)
                     }
                     resolve(result)
@@ -181,10 +182,10 @@ export class IndexedDBDataSource implements DataSource {
             }
         })
     }
-    addEmployeeToDepartment(employeeId: number, departmentId: number): void {
+    addEmployeeToDepartment(employeeId: number, departmentId: number, role: EmployeeRole): void {
         const t = this.db.transaction(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, DbAccessType.READWRITE);
         const store = t.objectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY);
-        const req = store.add({employeeId, departmentId, joined: new Date(), left: null});
+        const req = store.add({employeeId, departmentId, joined: new Date(), left: null, role});
         req.onsuccess = () => {
             console.log("Department deleted");
         }
@@ -228,10 +229,6 @@ export class IndexedDBDataSource implements DataSource {
         if (!this.db.objectStoreNames.contains(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY)) {
             console.log("Creating object store Employees-Sites");
             this.db.createObjectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, { keyPath: ["employeeId", "departmentId"] });
-        }
-        if (!this.db.objectStoreNames.contains(SCHEMAS.EMPLOYEES_ROLES)) {
-            console.log("Creating object store Employees-Sites");
-            this.db.createObjectStore(SCHEMAS.EMPLOYEES_ROLES, { keyPath: ["employeeId", "departmentId"] });
         }
         if (!this.db.objectStoreNames.contains(SCHEMAS.DEPARTMENTS_LOCATIONS)) {
             console.log("Creating object store Employees-Sites");
@@ -279,7 +276,7 @@ export class IndexedDBDataSource implements DataSource {
         department.name = "Programmers"
         department.description = "Locker password is 1234"
         this.addDepartment(department);
-        this.addEmployeeToDepartment(1,1);
+        this.addEmployeeToDepartment(1,1, 'manager');
     }
 
 }

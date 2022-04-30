@@ -1,6 +1,7 @@
 import { Subject } from "rxjs";
 import { DepartmentEmployee } from "src/app/models/dto/department-employee";
 import { Employee, Location, Department } from "src/app/models/entities";
+import { EmployeeRole } from "src/app/models/types";
 
 export enum DataSourceState {
     CONNECTING,
@@ -36,7 +37,7 @@ export default interface DataSource {
 
     getAllEmployeesInDepartment(employeeId: number): Promise<DepartmentEmployee[]>;
 
-    addEmployeeToDepartment(employeeId: number, siteId: number): void;
+    addEmployeeToDepartment(employeeId: number, siteId: number, role: EmployeeRole): void;
 
     getAllLocations(): Promise<Location[]>;
 

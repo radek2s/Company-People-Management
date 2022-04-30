@@ -33,7 +33,7 @@
         <section>
             <h3>Employees</h3>
             <mat-list *ngIf="employees && employees.length">
-                <mat-list-item *ngFor="let emp of employees">{{emp.name}} {{emp.surname}} - Joined {{emp.joined.toLocaleString()}}</mat-list-item>
+                <mat-list-item *ngFor="let emp of employees">{{emp.name}} {{emp.surname}} {{emp.role}}- Joined {{emp.joined.toLocaleString()}}</mat-list-item>
             </mat-list>
             
 

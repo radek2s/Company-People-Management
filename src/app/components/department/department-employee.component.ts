@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Employee } from 'src/app/models/entities';
+import { EmployeeRole } from 'src/app/models/types';
 import DataSourceService from 'src/app/services/datasources';
 
 
@@ -19,6 +20,14 @@ import DataSourceService from 'src/app/services/datasources';
     </mat-option>
   </mat-select>
 </mat-form-field>
+<mat-form-field>
+  <mat-label>Role</mat-label>
+  <mat-select [(value)]="selectedRole">
+    <mat-option *ngFor="let r of roles" [value]="r">
+      {{r}}
+    </mat-option>
+  </mat-select>
+</mat-form-field>
   </div>
   <div class="dialog-actions">
       <button mat-button mat-flat-button color="primary" class="margin-xs" (click)="onNoClick()">Cancel</button>
@@ -28,21 +37,25 @@ import DataSourceService from 'src/app/services/datasources';
 })
 export class DepartmentEmployeeSelectorDialogComponent {
     employees!: Employee[];
+    roles:EmployeeRole[] = ['employee', 'leader', 'manager', 'other', 'principal', 'support']
     selected: number;
+    selectedRole: EmployeeRole;
+
 
     constructor(
         private dialogReference: MatDialogRef<DepartmentEmployeeSelectorDialogComponent>,
         private ds: DataSourceService
     ) {
         this.selected = -1;
+        this.selectedRole = 'employee';
         this.ds.getAllEmployees().then(r => { this.employees = r});
     }
 
     onNoClick(): void {
-        this.dialogReference.close(-1);
+        this.dialogReference.close();
     }
     onYesClick(): void {
-        this.dialogReference.close(this.selected);
+        this.dialogReference.close({id: this.selected, role: this.selectedRole});
     }
 
 }

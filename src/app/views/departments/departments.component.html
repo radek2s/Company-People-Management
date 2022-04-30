@@ -2,8 +2,14 @@
     Departments
     <button mat-button (click)="showEmployees(1)">ShowEmployees</button>
 
-    <p *ngIf="!!departments && departments.length">
+    <div *ngIf="!!departments && departments.length">
         <department-info-card *ngFor="let department of departments" [department]="department">
         </department-info-card>
-    </p>
+    </div>
+
+    <div class="btn-floating">
+        <button mat-fab color="primary" (click)="addDepartment()">
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
 </div>
