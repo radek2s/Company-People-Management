@@ -18,6 +18,7 @@ import { DepartmentsComponent, EmployeesComponent, HomeComponent, LocationsCompo
 import { LocationCreatorDialogComponent } from './components/locations/location-creator.component';
 import { DepartmentCreatorDialogComponent } from './components/department/department-creator.component';
 import { DepartmentEmployeeSelectorDialogComponent } from './components/department/department-employee.component';
+import { TransitionComponent } from './components/transition/transition.component';
 
 
 
@@ -37,7 +38,8 @@ import { DepartmentEmployeeSelectorDialogComponent } from './components/departme
     DepartmentEmployeeSelectorDialogComponent,
     LocationsComponent,
     LocationInfoCardComponent,
-    LocationCreatorDialogComponent
+    LocationCreatorDialogComponent,
+    TransitionComponent,
   ],
   imports: [
     BrowserModule,

@@ -11,7 +11,8 @@ const SCHEMAS = {
     EMPLOYEES_DEPARTMENTS_ACTIVITY: 'employees_departments_activity',
     DEPARTMENTS: 'departments',
     DEPARTMENTS_LOCATIONS: 'departments_locations',
-    LOCATIONS: 'locations'
+    LOCATIONS: 'locations',
+    TEMPORAL_LIST: 'temporal_list'
 }
 
 enum DbAccessType {
@@ -190,6 +191,78 @@ export class IndexedDBDataSource implements DataSource {
             console.log("Department deleted");
         }
     }
+
+    removeEmployeeFromDepartment(employeeId: number) {
+        const t = this.db.transaction(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, DbAccessType.READWRITE);
+        const store = t.objectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY);
+        const req = store.getAll();
+        req.onsuccess = (event: any) => {
+            const res = event.target.result.filter((e:any) => (e.employeeId === employeeId && !e.left))[0]
+            console.log(res)
+            
+            const t2 = this.db.transaction(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, DbAccessType.READWRITE);
+            const store2 = t2.objectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY);
+
+            res.left = new Date();
+
+            const req2 = store2.put(res);
+
+            req2.onsuccess = () => {
+                console.warn("DONW")
+            }
+            req2.onerror = () => {
+                console.error("fa")
+            }
+
+            // const t1 = this.db.transaction(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, DbAccessType.READWRITE);
+            // const store = t1.objectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY);
+            // const req = store.add({employeeId, departmentId, joined: new Date(), left: null, role});
+        // req.onsuccess = () => {
+        //     console.log("Department deleted");
+        // }
+
+
+
+        }
+
+    }
+
+    addEmployeeToTemporalList(employeeId: number): void {
+        const t = this.db.transaction(SCHEMAS.TEMPORAL_LIST, DbAccessType.READWRITE);
+        const store = t.objectStore(SCHEMAS.TEMPORAL_LIST);
+        const req = store.add({employeeId});
+        req.onsuccess = () => {
+            console.log("Department add");
+        }
+    }
+
+    removeEmployeeFromTemporalList(employeeId: number): void {
+        const t = this.db.transaction(SCHEMAS.TEMPORAL_LIST, DbAccessType.READWRITE);
+        console.log(employeeId)
+        const req = t.objectStore(SCHEMAS.TEMPORAL_LIST).delete(employeeId);
+        t.oncomplete = () => {
+            console.log("Department deleted");
+        }
+    }
+
+    getAllEmployeesInTemporalList(): Promise<Employee[]> {
+        return new Promise((resolve, reject) => {
+            const t = this.db.transaction(SCHEMAS.TEMPORAL_LIST, DbAccessType.READWRITE);
+            const store = t.objectStore(SCHEMAS.TEMPORAL_LIST);
+            const req = store.getAll();
+            req.onsuccess = (event: any) => {
+                let ids = event.target.result.map((e:any) => { return e.employeeId })
+                this.getAllEmployees().then((e) => {
+                    resolve(e.filter(e => { return ids.indexOf(e.id) > -1 }))
+                })
+            }
+            req.onerror = (e: any) => {
+                reject(e)
+            }
+        })
+    }
+
+    
     getAllLocations(): Promise<Location[]> {
         throw new Error("Method not implemented.");
     }
@@ -232,7 +305,11 @@ export class IndexedDBDataSource implements DataSource {
         }
         if (!this.db.objectStoreNames.contains(SCHEMAS.DEPARTMENTS_LOCATIONS)) {
             console.log("Creating object store Employees-Sites");
-            this.db.createObjectStore(SCHEMAS.DEPARTMENTS_LOCATIONS, { keyPath: ["employeeId", "departmentId"] });
+            this.db.createObjectStore(SCHEMAS.DEPARTMENTS_LOCATIONS, { keyPath: "id", autoIncrement: true });
+        }
+        if (!this.db.objectStoreNames.contains(SCHEMAS.TEMPORAL_LIST)) {
+            console.log("Creating object store for TemporalList");
+            this.db.createObjectStore(SCHEMAS.TEMPORAL_LIST, { keyPath: "employeeId"})
         }
     }
 

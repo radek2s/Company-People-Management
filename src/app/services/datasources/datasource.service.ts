@@ -97,4 +97,20 @@ export class DataSourceService {
         this.datasource.addEmployeeToDepartment(employeeId, departmentId, role)
     }
 
+    public removeEmployeeFromDepartment(employeeId: number) {
+        this.datasource.removeEmployeeFromDepartment(employeeId)
+    }
+
+    public addEmployeeToTemporalList(employeeId: number) {
+        this.datasource.addEmployeeToTemporalList(employeeId)
+    }
+
+    public removeEmployeeFromTemporalList(employeeId: number) {
+        this.datasource.removeEmployeeFromTemporalList(employeeId)
+    }
+
+    public getAllEmployeesInTemporalList(): Promise<Employee[]> {
+        return this.datasource.getAllEmployeesInTemporalList()
+    }
+
 }

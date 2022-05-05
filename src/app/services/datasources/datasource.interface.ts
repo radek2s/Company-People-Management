@@ -39,6 +39,14 @@ export default interface DataSource {
 
     addEmployeeToDepartment(employeeId: number, siteId: number, role: EmployeeRole): void;
 
+    removeEmployeeFromDepartment(employeeId: number): void
+
+    addEmployeeToTemporalList(employeeId: number): void
+
+    removeEmployeeFromTemporalList(employeeId: number): void
+
+    getAllEmployeesInTemporalList(): Promise<Employee[]>
+
     getAllLocations(): Promise<Location[]>;
 
     getLocation(id: number): Promise<Location>;
