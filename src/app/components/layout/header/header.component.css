@@ -6,3 +6,7 @@
 .mainbar--logo > img {
     height: 100%;
 }
+.icon-color path {
+    fill: white;
+
+}

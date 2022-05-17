@@ -1,5 +1,6 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
 import { Employee } from "src/app/models/entities";
+import { IconService } from "src/app/services/icon.service";
 
 
 
@@ -13,6 +14,8 @@ export class EmployeeInfoCardComponent {
     @Output() edit = new EventEmitter<Employee>();
     @Output() delete = new EventEmitter<number>();
     @Output() debuger = new EventEmitter<Employee>();
+
+    constructor(private iconService: IconService) { }
 
     editEmployee() {
         this.edit.emit(this.employee);

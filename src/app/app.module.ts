@@ -19,6 +19,7 @@ import { LocationCreatorDialogComponent } from './components/locations/location-
 import { DepartmentCreatorDialogComponent } from './components/department/department-creator.component';
 import { DepartmentEmployeeSelectorDialogComponent } from './components/department/department-employee.component';
 import { TransitionComponent } from './components/transition/transition.component';
+import { HttpClientModule } from '@angular/common/http';
 
 
 
@@ -46,6 +47,7 @@ import { TransitionComponent } from './components/transition/transition.componen
     FormsModule,
     AppRoutingModule,
     MaterialModule,
+    HttpClientModule,
     ServiceWorkerModule.register('ngsw-worker.js', {
       enabled: environment.production,
       // Register the ServiceWorker as soon as the application is stable

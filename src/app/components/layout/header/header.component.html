@@ -10,28 +10,28 @@
         <span></span>
 
         <button mat-icon-button class="mainbar--settings" [matMenuTriggerFor]="menu">
-            <mat-icon>home</mat-icon>
+            <mat-icon svgIcon="home"></mat-icon>
         </button>
 
         <mat-menu #menu="matMenu">
             <button mat-menu-item (click)="navigateTo('')">
-                <mat-icon>space_dashboard</mat-icon>
+                <mat-icon svgIcon="desktop"></mat-icon>
                 <span>Main dashboard</span>
             </button>
             <button mat-menu-item (click)="navigateTo('employees')">
-                <mat-icon>groups</mat-icon>
+                <mat-icon svgIcon="people"></mat-icon>
                 <span>Empolyees</span>
             </button>
             <button mat-menu-item (click)="navigateTo('departments')">
-                <mat-icon>group_work</mat-icon>
+                <mat-icon svgIcon="app-folder"></mat-icon>
                 <span>Departments</span>
             </button>
             <button mat-menu-item (click)="navigateTo('locations')">
-                <mat-icon>domain</mat-icon>
+                <mat-icon svgIcon="city"></mat-icon>
                 <span>Locations</span>
             </button>
             <button mat-menu-item (click)="navigateTo('settings')">
-                <mat-icon>build</mat-icon>
+                <mat-icon svgIcon="settings" class="icon-color"></mat-icon>
                 <span>Database settings</span>
             </button>
         </mat-menu>

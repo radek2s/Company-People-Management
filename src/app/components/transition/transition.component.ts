@@ -78,7 +78,10 @@ export class TransitionComponent implements OnInit {
 
     loadEmployees(id: number) {
         this.ds.getAllEmployeesInDepartment(id).then(r => {
-            this.employeeList = r;
+            const tempIds = this.temporal.map(d => d.id)
+
+            this.employeeList = r.filter(e => { return tempIds.indexOf(e.id) > -1 });
+            
         })
     }
 
