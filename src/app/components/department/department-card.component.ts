@@ -4,12 +4,14 @@ import { DepartmentEmployee } from "src/app/models/dto/department-employee";
 import { Department, Employee } from "src/app/models/entities";
 import DataSourceService from "src/app/services/datasources";
 import { DepartmentEmployeeSelectorDialogComponent } from "./department-employee.component";
+import {MatTableDataSource} from '@angular/material/table';
 
 
 
 @Component({
     selector: "department-info-card",
     templateUrl: "./department-card.component.html",
+    styleUrls: ["./department-card.component.scss"]
 })
 export class DepartmentInfoCardComponent {
 
@@ -17,6 +19,9 @@ export class DepartmentInfoCardComponent {
     @Output() edit = new EventEmitter<Department>();
     @Output() delete = new EventEmitter<number>();
     employees!: DepartmentEmployee[];
+    extended: boolean = false;
+    dataSource = new MatTableDataSource<DepartmentEmployee>()
+    displayedColumns= ['role', 'name', 'surname', 'joined']
 
     constructor(
         private ds: DataSourceService,
@@ -28,9 +33,17 @@ export class DepartmentInfoCardComponent {
     }
 
     loadEmployees() {
-        this.ds.getAllEmployeesInDepartment(this.department.id).then(r => {
-            this.employees = r;
-        })
+        this.extended = !this.extended
+        if(this.extended) {
+            this.ds.getAllEmployeesInDepartment(this.department.id).then(r => {
+                this.employees = r;
+                this.dataSource = new MatTableDataSource(r)
+            })
+        }
+    }
+
+    isExtended() {
+        
     }
 
     addEmployee() {

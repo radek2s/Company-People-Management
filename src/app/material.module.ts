@@ -12,6 +12,8 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatListModule } from '@angular/material/list';
 import { MatSelectModule } from '@angular/material/select';
 import { MatSidenavModule } from '@angular/material/sidenav';
+import {MatTableModule} from '@angular/material/table';
+
 
 
 
@@ -31,7 +33,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatFormFieldModule,
     MatListModule,
     MatSelectModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule
   ],
   exports: [
     DragDropModule,
@@ -46,7 +49,8 @@ import { MatSidenavModule } from '@angular/material/sidenav';
     MatFormFieldModule,
     MatListModule,
     MatSelectModule,
-    MatSidenavModule
+    MatSidenavModule,
+    MatTableModule
   ]
 })
 export class MaterialModule { }
