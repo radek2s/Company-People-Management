@@ -71,6 +71,7 @@ const Icons = {
     Mail: 'mail',
     Map: 'map',
     MoreVertical: 'more-vertical',
+    Navigation: 'navigation',
     Note: 'note',
     Open: 'open',
     Options: 'options',

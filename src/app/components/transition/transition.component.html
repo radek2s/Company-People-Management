@@ -9,26 +9,31 @@
                 </mat-select>
             </mat-form-field>
 
-            <div *ngIf="department">
-                <h3>{{department.name}}</h3>
-                <div *ngIf="employeeList">
-                    <mat-list cdkDropList [cdkDropListData]="employeeList" (cdkDropListDropped)="drop($event)" class="source" #todoList="cdkDropList" [cdkDropListConnectedTo]="[doneList]">
+            <div *ngIf="department && employeeList" class="transition-container">
+
+                <div class="employee-container">
+                    <h1>Employees</h1>
+                    <mat-list cdkDropList [cdkDropListData]="employeeList" (cdkDropListDropped)="drop($event)"
+                        class="source" #todoList="cdkDropList" [cdkDropListConnectedTo]="[doneList]">
                         <mat-list-item *ngFor="let employee of employeeList" cdkDrag>
                             {{employee.name}} {{employee.surname}}
                         </mat-list-item>
                     </mat-list>
+                </div>
 
-                    <div>
-                        <h1>Temporal</h1>
-                    </div>
-    
-                    <mat-list cdkDropList [cdkDropListData]="temporal" (cdkDropListDropped)="drop($event)" #doneList="cdkDropList" [cdkDropListConnectedTo]="[todoList]">
+
+
+                <div class="employee-container">
+                    <h1>Temporal</h1>
+                    <mat-list cdkDropList [cdkDropListData]="temporal" (cdkDropListDropped)="drop($event)"
+                        #doneList="cdkDropList" [cdkDropListConnectedTo]="[todoList]">
                         <mat-list-item *ngFor="let item of temporal" cdkDrag>{{item}}</mat-list-item>
                     </mat-list>
                 </div>
+
             </div>
-            
-            
+
+
 
         </mat-card-content>
     </mat-card>

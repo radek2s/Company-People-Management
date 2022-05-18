@@ -1,0 +1,22 @@
+<mat-list class="navigation">
+    <mat-list-item [ngClass]="isActive('main')" (click)="navigateTo('')">
+        <mat-icon mat-list-icon svgIcon="desktop"></mat-icon>
+        <div mat-line>Main dashboard</div>
+    </mat-list-item>
+    <mat-list-item [ngClass]="isActive('employees')" (click)="navigateTo('employees')">
+        <mat-icon mat-list-icon svgIcon="people"></mat-icon>
+        <div mat-line>Empolyees</div>
+    </mat-list-item>
+    <mat-list-item [ngClass]="isActive('departments')" (click)="navigateTo('departments')">
+        <mat-icon mat-list-icon svgIcon="app-folder"></mat-icon>
+        <div mat-line>Departments</div>
+    </mat-list-item>
+    <mat-list-item [ngClass]="isActive('locations')" (click)="navigateTo('locations')">
+        <mat-icon mat-list-icon svgIcon="city"></mat-icon>
+        <div mat-line>Locations</div>
+    </mat-list-item>
+    <mat-list-item [ngClass]="isActive('settings')" (click)="navigateTo('settings')">
+        <mat-icon mat-list-icon svgIcon="settings"></mat-icon>
+        <div mat-line>Database settings</div>
+    </mat-list-item>
+</mat-list>

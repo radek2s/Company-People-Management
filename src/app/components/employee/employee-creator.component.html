@@ -2,32 +2,40 @@
     <span>Add new Employee</span>
 </h1>
 <div mat-dialog-content>
-    <mat-form-field>
-        <mat-label>First name</mat-label>
-        <input matInput [(ngModel)]="employee.name"/>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Last name</mat-label>
-        <input matInput [(ngModel)]="employee.surname"/>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Birth date</mat-label>
-        <input matInput [(ngModel)]="employee.birthDate"/>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Birth place</mat-label>
-        <input matInput [(ngModel)]="employee.birthPlace"/>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Phone number</mat-label>
-        <input matInput [(ngModel)]="employee.phoneNumber"/>
-    </mat-form-field>
-    <mat-form-field>
-        <mat-label>Email address</mat-label>
-        <input matInput [(ngModel)]="employee.email"/>
-    </mat-form-field>
+    <div class="flex-column">
+        <div>
+            <mat-form-field class="margin-xs">
+                <mat-label>First name</mat-label>
+                <input matInput [(ngModel)]="employee.name"/>
+            </mat-form-field>
+            <mat-form-field class="margin-xs">
+                <mat-label>Last name</mat-label>
+                <input matInput [(ngModel)]="employee.surname"/>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="margin-xs">
+                <mat-label>Birth date</mat-label>
+                <input matInput [(ngModel)]="employee.birthDate"/>
+            </mat-form-field>
+            <mat-form-field class="margin-xs">
+                <mat-label>Birth place</mat-label>
+                <input matInput [(ngModel)]="employee.birthPlace"/>
+            </mat-form-field>
+        </div>
+        <div>
+            <mat-form-field class="margin-xs">
+                <mat-label>Phone number</mat-label>
+                <input matInput [(ngModel)]="employee.phoneNumber"/>
+            </mat-form-field>
+            <mat-form-field class="margin-xs">
+                <mat-label>Email address</mat-label>
+                <input matInput [(ngModel)]="employee.email"/>
+            </mat-form-field>
+        </div>
+    </div>
 </div>
 <div class="dialog-actions">
-    <button mat-button mat-flat-button color="primary" class="margin-xs" (click)="onNoClick()">Cancel</button>
-    <button mat-button mat-flat-button color="warn" class="margin-xs" (click)="onYesClick()">Save</button>
+    <button mat-button mat-button class="margin-xs" (click)="onNoClick()">Cancel</button>
+    <button mat-button mat-flat-button color="primary" class="margin-xs" (click)="onYesClick()">Save</button>
 </div>

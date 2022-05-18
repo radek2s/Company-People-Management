@@ -7,6 +7,7 @@ import { Employee } from 'src/app/models/entities';
 @Component({
   selector: 'app-employee-creator-dialog',
   templateUrl: './employee-creator.component.html',
+  styleUrls: ['../../../styles.scss']
 })
 export class EmployeeCreatorDialogComponent {
 

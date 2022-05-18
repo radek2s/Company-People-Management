@@ -1,41 +1,12 @@
 <header>
     <mat-toolbar class="mainbar-header">
-        <div class="mainbar--logo">
-            <img src="./assets/h_herb.png">
+        <div>
+            <ng-content></ng-content>
         </div>
 
         <h1 class="mainbar--company-name">
             Office management
         </h1>
-        <span></span>
-
-        <button mat-icon-button class="mainbar--settings" [matMenuTriggerFor]="menu">
-            <mat-icon svgIcon="home"></mat-icon>
-        </button>
-
-        <mat-menu #menu="matMenu">
-            <button mat-menu-item (click)="navigateTo('')">
-                <mat-icon svgIcon="desktop"></mat-icon>
-                <span>Main dashboard</span>
-            </button>
-            <button mat-menu-item (click)="navigateTo('employees')">
-                <mat-icon svgIcon="people"></mat-icon>
-                <span>Empolyees</span>
-            </button>
-            <button mat-menu-item (click)="navigateTo('departments')">
-                <mat-icon svgIcon="app-folder"></mat-icon>
-                <span>Departments</span>
-            </button>
-            <button mat-menu-item (click)="navigateTo('locations')">
-                <mat-icon svgIcon="city"></mat-icon>
-                <span>Locations</span>
-            </button>
-            <button mat-menu-item (click)="navigateTo('settings')">
-                <mat-icon svgIcon="settings" class="icon-color"></mat-icon>
-                <span>Database settings</span>
-            </button>
-        </mat-menu>
-
 
     </mat-toolbar>
 </header>

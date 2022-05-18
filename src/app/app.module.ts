@@ -20,6 +20,7 @@ import { DepartmentCreatorDialogComponent } from './components/department/depart
 import { DepartmentEmployeeSelectorDialogComponent } from './components/department/department-employee.component';
 import { TransitionComponent } from './components/transition/transition.component';
 import { HttpClientModule } from '@angular/common/http';
+import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
 
 
 
@@ -27,6 +28,7 @@ import { HttpClientModule } from '@angular/common/http';
   declarations: [
     AppComponent,
     HeaderComponent,
+    SidebarComponent,
     ConfirmDialogComponent,
     SettingsComponent,
     HomeComponent,

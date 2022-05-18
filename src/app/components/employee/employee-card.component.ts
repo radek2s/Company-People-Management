@@ -7,6 +7,7 @@ import { IconService } from "src/app/services/icon.service";
 @Component({
     selector: "employee-info-card",
     templateUrl: "./employee-card.component.html",
+    styleUrls: ["./employee-card.component.scss"]
 })
 export class EmployeeInfoCardComponent {
 

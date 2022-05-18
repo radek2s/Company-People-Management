@@ -1,4 +1,4 @@
-<mat-card>
+<mat-card class="employee-card">
     <mat-card-title>
         <div class="flex flex-jc-between flex-al-center">
             <span>{{employee.surname}}, {{employee.name}}</span>
@@ -18,12 +18,12 @@
             </mat-menu>
         </div>
     </mat-card-title>
-    <mat-card-content>
+    <mat-card-content class="employee-card--content">
         <section>
-            <p><mat-icon svgIcon="cake"></mat-icon> {{employee.birthDate}}</p>
-            <p><mat-icon svgIcon="home"></mat-icon> {{employee.birthPlace}}</p>
-            <p><mat-icon svgIcon="phone"></mat-icon>{{employee.phoneNumber}}</p>
-            <p><mat-icon svgIcon="mail"></mat-icon>{{employee.email}}</p>
+            <p class="entry"><mat-icon svgIcon="cake"></mat-icon> {{employee.birthDate}}</p>
+            <p class="entry"><mat-icon svgIcon="home"></mat-icon> {{employee.birthPlace}}</p>
+            <p class="entry"><mat-icon svgIcon="phone"></mat-icon>{{employee.phoneNumber}}</p>
+            <p class="entry"><mat-icon svgIcon="mail"></mat-icon>{{employee.email}}</p>
         </section>
     </mat-card-content>
 </mat-card>

@@ -1,13 +1,27 @@
-<app-header></app-header>
+<app-header>
+  <button mat-icon-button (click)="sidebarmenu.toggle()">
+    <mat-icon svgIcon="navigation"></mat-icon>
+  </button>
+</app-header>
 
-<div [ngSwitch]="status">
-  <div *ngSwitchCase="0">
-    Loading...
-  </div>
-  <div *ngSwitchCase="1">
-    <router-outlet></router-outlet>
-  </div>
-  <div *ngSwitchCase="2">
-    Failed to connect to the server.
-  </div>
-</div>
+
+<mat-drawer-container [hasBackdrop]="false" class="main-container">
+  <mat-drawer #sidebarmenu mode="side">
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content class="main-content">
+    <main>
+      <div [ngSwitch]="status">
+        <div *ngSwitchCase="0">
+          Loading...
+        </div>
+        <div *ngSwitchCase="1">
+          <router-outlet></router-outlet>
+        </div>
+        <div *ngSwitchCase="2">
+          Failed to connect to the server.
+        </div>
+      </div>
+    </main>
+  </mat-drawer-content>
+</mat-drawer-container>

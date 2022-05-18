@@ -1,0 +1,10 @@
+@import '../style-variables.scss';
+.main-container {
+    height: calc(100vh - 64px);
+    background: $background-color;
+    // 008DF3
+
+}
+.main-content {
+    padding: 10px;
+}

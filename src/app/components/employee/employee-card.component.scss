@@ -1,0 +1,17 @@
+.employee-card {
+    margin: 10px;
+    min-width: 300px;
+}
+.employee-card--content {
+    opacity: 0.8;
+    font-size: 16px;
+
+    .entry {
+        display: flex;
+        align-items: center;
+    }
+    .entry > mat-icon {
+        height: 18px;
+        margin-right: 5px;
+    }
+}

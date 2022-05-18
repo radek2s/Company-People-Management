@@ -9,6 +9,7 @@ import { DepartmentEmployee } from 'src/app/models/dto/department-employee';
 @Component({
     selector: 'app-transition-component',
     templateUrl: './transition.component.html',
+    styleUrls: ['./transition.component.scss']
 })
 export class TransitionComponent implements OnInit {
 

@@ -1,4 +1,5 @@
 /* You can add global styles to this file, and also import other style files */
+@import './style-variables.scss';
 
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
@@ -6,15 +7,61 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 .flex {
     display: flex;
 }
+.flex-column {
+    display: flex;
+    flex-direction: column;
+}
 .flex-jc-between {
     justify-content: space-between;
 }
 .flex-al-center {
     align-items: center;
 }
+.margin-xs {
+    margin: 5px;
+}
+.dialog-actions {
+    display: flex;
+    justify-content: flex-end;
+}
 
 .btn-floating {
     margin-top: -25px;
     padding-right: 25px;
     float: right;
+}
+
+.mat-card, /* All cards */
+.mat-menu-panel { /* menus */
+    background: $background-card;
+    border-radius: $border-radius-card !important;
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    border: 1px solid rgba(0, 0, 0, 0.2);
+
+}
+
+.mat-drawer {
+    background: $background-color-100;
+}
+.mat-toolbar {
+    background: $background-color-300;
+}
+
+.mat-icon-button {
+    border-radius: 4px !important;
+}
+.mat-icon-button:hover,
+.mat-flat-button:hover {
+    background: rgba(255, 255, 255, 0.2);
+
+}
+
+.mat-dialog-container {
+    background: $background-card-100;
+    border-radius:  $border-radius-card !important;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(7px);
+    -webkit-backdrop-filter: blur(7px);
+    border: 1px solid rgba(0, 0, 0, 0.18);
 }

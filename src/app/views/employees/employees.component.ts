@@ -8,7 +8,9 @@ import DataSourceService from "src/app/services/datasources";
 
 @Component({
     selector: "app-employees",
-    templateUrl: "./employees.component.html"
+    templateUrl: "./employees.component.html",
+    styleUrls: ["./employees.component.scss"]
+    
 })
 export class EmployeesComponent implements OnInit {
 
