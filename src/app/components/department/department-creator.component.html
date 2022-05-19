@@ -2,6 +2,12 @@
     <span>Add Department</span>
 </h1>
 <div mat-dialog-content>
+    <mat-form-field *ngIf="locations">
+        <mat-label>Select location</mat-label>
+        <mat-select [(value)]="selectedLocation">
+            <mat-option *ngFor="let l of locations" [value]="l.id">{{l.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
     <mat-form-field>
         <mat-label>Department name</mat-label>
         <input matInput [(ngModel)]="department.name"/>

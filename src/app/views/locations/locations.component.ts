@@ -1,6 +1,7 @@
 
 import { Component, OnInit } from "@angular/core";
 import { MatDialog } from "@angular/material/dialog";
+import { LocationCreatorDialogComponent } from "src/app/components/locations/location-creator.component";
 import { Location } from "src/app/models/entities";
 import DataSourceService from "src/app/services/datasources";
 
@@ -30,6 +31,13 @@ export class LocationsComponent implements OnInit {
     }
 
     addLocation() {
+        const dialogRef = this.editorDialog.open(LocationCreatorDialogComponent)
+        dialogRef.afterClosed().subscribe(loc => {
+            if(!!loc) {
+                this.datasource.addLocation(loc)
+                this.datasource.getAllLocations().then(l => this.locations = l)
+            }
+        })
         
     }
 

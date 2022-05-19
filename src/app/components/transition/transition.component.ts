@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag-drop';
 import DataSourceService from 'src/app/services/datasources';
-import { Department, Employee } from 'src/app/models/entities';
+import { Department, Employee, Location } from 'src/app/models/entities';
 import { DepartmentEmployee } from 'src/app/models/dto/department-employee';
 
 
@@ -16,20 +16,25 @@ export class TransitionComponent implements OnInit {
     
     department!: Department
     departmentList: Department[]
+    location!: Location
+    locationList: Location[]
     employeeList: DepartmentEmployee[]
     temporal: DepartmentEmployee[];
+    notAssignedList: DepartmentEmployee[];
 
     constructor(
         private ds: DataSourceService,
     ) {
-        this.employeeList = [];
+        this.locationList = [];
         this.departmentList = [];
+        this.employeeList = [];
         this.temporal = [];
+        this.notAssignedList = [];
     }
 
     ngOnInit(): void {
-        this.getDepartments();
-        this.getTemporalEmployees();
+        this.getAllLocations()
+        
     }
 
     drop(event: CdkDragDrop<DepartmentEmployee[]>) {
@@ -43,20 +48,25 @@ export class TransitionComponent implements OnInit {
                 event.currentIndex,
             );
             const empl = event.container.data[event.currentIndex];
-            console.log(event.container.element.nativeElement.className.includes("source"))
             if(!event.container.element.nativeElement.className.includes("source")) {
                 this.ds.addEmployeeToTemporalList(empl.id)
             } else {
-                this.ds.removeEmployeeFromTemporalList(empl.id)
-                this.ds.removeEmployeeFromDepartment(empl.id)
+                if(event.previousContainer.element.nativeElement.className.includes("temporal")) {
+                    this.ds.removeEmployeeFromTemporalList(empl.id)
+                    this.ds.removeEmployeeFromDepartment(empl.id)
+                }
                 this.ds.addEmployeeToDepartment(empl.id, this.department.id, "employee")
             }
             
         }
     }
 
+    getAllLocations() {
+        this.ds.getAllLocations().then(r => this.locationList = r)
+    }
+
     getDepartments() {
-        this.ds.getAllDepartments().then(deps => {
+        this.ds.getAllDepartmentsInLocation(this.location.id).then(deps => {
             this.departmentList = deps
         });
     }
@@ -73,16 +83,30 @@ export class TransitionComponent implements OnInit {
         })
     }
 
+    getAllUnassignedEmployees() {
+        this.ds.getAllEmployeesNotAssigned().then(r => {
+            this.notAssignedList = r.map((e) => {
+                const d = new DepartmentEmployee()
+                d.id = e.id
+                d.name = e.name
+                d.surname = e.surname
+                return d
+            })
+        })
+    }
+    selectLocation() {
+        this.getDepartments()
+    }
     selectDepartment() {
         this.loadEmployees(this.department.id)
+        this.getTemporalEmployees();
+        this.getAllUnassignedEmployees()
     }
 
     loadEmployees(id: number) {
         this.ds.getAllEmployeesInDepartment(id).then(r => {
             const tempIds = this.temporal.map(d => d.id)
-
-            this.employeeList = r.filter(e => { return tempIds.indexOf(e.id) > -1 });
-            
+            this.employeeList = r.filter(e => { return tempIds.indexOf(e.id) === -1 });
         })
     }
 

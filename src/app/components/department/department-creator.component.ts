@@ -1,6 +1,7 @@
 import { Component, Inject } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Department } from 'src/app/models/entities';
+import { Department, Location } from 'src/app/models/entities';
+import DataSourceService from 'src/app/services/datasources';
 
 
 
@@ -11,11 +12,15 @@ import { Department } from 'src/app/models/entities';
 export class DepartmentCreatorDialogComponent {
 
     department: Department;
+    locations!: Location[];
+    selectedLocation: number = -1
 
     constructor(
         private dialogReference: MatDialogRef<DepartmentCreatorDialogComponent>,
+        private datasource: DataSourceService,
         @Inject(MAT_DIALOG_DATA) public data: any
     ) {
+        this.initLocations()
         if (data && data.department) {
             this.department = data.department;
         } else {
@@ -23,12 +28,16 @@ export class DepartmentCreatorDialogComponent {
         }
     }
 
+    private async initLocations() {
+        this.locations = await this.datasource.getAllLocations();
+    }
+
     onNoClick(): void {
         this.dialogReference.close();
     }
     
     onYesClick(): void {
-        this.dialogReference.close(this.department);
+        this.dialogReference.close({dep: this.department, loc: this.selectedLocation});
     }
 
 }

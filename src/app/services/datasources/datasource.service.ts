@@ -64,7 +64,6 @@ export class DataSourceService {
         console.log("Adding employee DataSource service");
 
         if (this.connected) {
-            console.log(employee);
             this.datasource.addEmployee(employee);
         }
     }
@@ -81,8 +80,8 @@ export class DataSourceService {
         return this.datasource.getAllDepartments()
     }
 
-    public addDepartmnet(department: Department) {
-        this.datasource.addDepartment(department)
+    public addDepartmnet(department: Department): Promise<number> {
+        return this.datasource.addDepartment(department)
     }
 
     public getAllLocations(): Promise<Location[]> {
@@ -111,6 +110,22 @@ export class DataSourceService {
 
     public getAllEmployeesInTemporalList(): Promise<Employee[]> {
         return this.datasource.getAllEmployeesInTemporalList()
+    }
+
+    public getAllEmployeesNotAssigned(): Promise<Employee[]> {
+        return this.datasource.getAllEmployeesNotAssigned()
+    }
+
+    public addLocation(location: Location):void {
+        this.datasource.addLocation(location)
+    }
+
+    public addDepartmentsToLocation(departmentId: number, locationId: number): void {
+        this.datasource.addDepartmentsToLocation(departmentId, locationId)
+    }
+
+    public getAllDepartmentsInLocation(locationId: number): Promise<Department[]> {
+        return this.datasource.getAllDepartmentsInLocation(locationId)
     }
 
 }

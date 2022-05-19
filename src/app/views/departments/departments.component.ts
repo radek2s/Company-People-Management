@@ -38,22 +38,14 @@ export class DepartmentsComponent implements OnInit {
 
     addDepartment() {
         const dialogRef = this.editorDialog.open(DepartmentCreatorDialogComponent)
-        dialogRef.afterClosed().subscribe(dep => {
-            if(!!dep) {
-                this.datasource.addDepartmnet(dep)
-                this.datasource.getAllDepartments().then(d => this.departments = d)
+        dialogRef.afterClosed().subscribe(d => {
+            if(!!d) {
+                const {dep, loc} = d
+                this.datasource.addDepartmnet(dep).then(id => {
+                    this.datasource.addDepartmentsToLocation(id, loc)
+                    this.datasource.getAllDepartments().then(d => this.departments = d)
+                })
             }
         })
     }
-
-    // addSite() {
-    //     const dialogRef = this.editorDialog.open(SiteCreatorDialogComponent)
-
-    //     dialogRef.afterClosed().subscribe(site => {
-    //         if(!!site) {
-    //             this.service.addSite(site);
-    //         }
-    //     })
-    // }
-    
 }

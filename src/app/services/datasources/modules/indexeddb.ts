@@ -129,13 +129,16 @@ export class IndexedDBDataSource implements DataSource {
             }
         })
     }
-    addDepartment(department: Department): void {
-        const t = this.db.transaction(SCHEMAS.DEPARTMENTS, DbAccessType.READWRITE);
-        const store = t.objectStore(SCHEMAS.DEPARTMENTS);
-        const req = store.add(department);
-        req.onsuccess = () => {
-            console.log("Department added");
-        }
+    addDepartment(department: Department): Promise<number> {
+        return new Promise((resolve, reject) => {
+            const t = this.db.transaction(SCHEMAS.DEPARTMENTS, DbAccessType.READWRITE);
+            const store = t.objectStore(SCHEMAS.DEPARTMENTS);
+            const req = store.add(department);
+            req.onsuccess = (e:any) => {
+                console.log("Department added");
+                resolve(e.target.result)
+            }
+        }) 
     }
     updateDepartment(department: Department): void {
         const t = this.db.transaction(SCHEMAS.DEPARTMENTS, DbAccessType.READWRITE);
@@ -198,7 +201,6 @@ export class IndexedDBDataSource implements DataSource {
         const req = store.getAll();
         req.onsuccess = (event: any) => {
             const res = event.target.result.filter((e:any) => (e.employeeId === employeeId && !e.left))[0]
-            console.log(res)
             
             const t2 = this.db.transaction(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, DbAccessType.READWRITE);
             const store2 = t2.objectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY);
@@ -262,15 +264,51 @@ export class IndexedDBDataSource implements DataSource {
         })
     }
 
+    getAllEmployeesNotAssigned(): Promise<Employee[]> {
+        return new Promise(async (resolve, reject) => {
+            const employees = await (await this.getAllEmployees())
+            const t = this.db.transaction(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, DbAccessType.READWRITE);
+            const store = t.objectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY);
+            const req = store.getAll();
+            req.onsuccess = (event: any) => {
+                const activeContribution = event.target.result.filter((e:any) => e.left === null);
+                const resp: Employee[] = []
+                employees.forEach(e => {
+                    const found = activeContribution.find((a: any) => a.employeeId === e.id)
+                    if(!found) { resp.push(e) }
+                })
+                resolve(resp)
+            }
+            req.onerror = (e: any) => {
+                reject(e)
+            }
+        })
+    }
+
     
     getAllLocations(): Promise<Location[]> {
-        throw new Error("Method not implemented.");
+        return new Promise((resolve, reject) => {
+            const t = this.db.transaction(SCHEMAS.LOCATIONS, DbAccessType.READONLY)
+            const store = t.objectStore(SCHEMAS.LOCATIONS)
+            const req = store.getAll();
+            req.onsuccess = (event: any) => {
+                resolve(event.target.result)
+            }
+            req.onerror = (e: any) => {
+                reject(e)
+            }
+        })
     }
     getLocation(id: number): Promise<Location> {
         throw new Error("Method not implemented.");
     }
     addLocation(location: Location): void {
-        throw new Error("Method not implemented.");
+        const t = this.db.transaction(SCHEMAS.LOCATIONS, DbAccessType.READWRITE);
+        const store = t.objectStore(SCHEMAS.LOCATIONS);
+        const req = store.add(location);
+        req.onsuccess = () => {
+            console.log("Location added");
+        }
     }
     updateLocation(location: Location): void {
         throw new Error("Method not implemented.");
@@ -278,8 +316,34 @@ export class IndexedDBDataSource implements DataSource {
     deleteLocation(id: number): void {
         throw new Error("Method not implemented.");
     }
-    getAllDepartmentsInLocation(): void {
-        throw new Error("Method not implemented.");
+
+    addDepartmentsToLocation(departmentId: number, locationId: number): void {
+        const t = this.db.transaction(SCHEMAS.DEPARTMENTS_LOCATIONS, DbAccessType.READWRITE);
+        const store = t.objectStore(SCHEMAS.DEPARTMENTS_LOCATIONS);
+        const req = store.add({departmentId, locationId});
+        req.onsuccess = () => {
+            console.log("Department deleted");
+        }
+    }
+
+    getAllDepartmentsInLocation(locationId: number): Promise<Department[]> {
+        return new Promise(async (resolve, reject) => {
+            const dep = await this.getAllDepartments();
+            const t = this.db.transaction(SCHEMAS.DEPARTMENTS_LOCATIONS, DbAccessType.READONLY);
+            const store = t.objectStore(SCHEMAS.DEPARTMENTS_LOCATIONS);
+            const req = store.getAll()
+            req.onsuccess = (event: any) => {
+                const res:Department[] = []
+                dep.forEach(d => {
+                    const f = event.target.result.find((e: any) => (e.departmentId === d.id && e.locationId === locationId))
+                    if(f) { res.push(d) }
+                });
+                resolve(res)
+            }
+            req.onerror = (e: any) => {
+                reject(e)
+            }
+        })
     }
 
 
@@ -354,6 +418,13 @@ export class IndexedDBDataSource implements DataSource {
         department.description = "Locker password is 1234"
         this.addDepartment(department);
         this.addEmployeeToDepartment(1,1, 'manager');
+        let location = new Location();
+        location.id = 1;
+        location.name = "Bunny Circle"
+        location.address = "ul. Polna 32"
+        location.webpage = "www.bunny-circle.pl"
+        this.addLocation(location)
+        this.addDepartmentsToLocation(1,1);
     }
 
 }

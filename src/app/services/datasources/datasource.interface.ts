@@ -29,7 +29,8 @@ export default interface DataSource {
 
     getDepartment(id: number): Promise<Department>;
 
-    addDepartment(department: Department): void;
+    //TODO: return result index to all methods
+    addDepartment(department: Department): Promise<number>;
 
     updateDepartment(department: Department): void;
 
@@ -47,6 +48,8 @@ export default interface DataSource {
 
     getAllEmployeesInTemporalList(): Promise<Employee[]>
 
+    getAllEmployeesNotAssigned(): Promise<Employee[]>
+
     getAllLocations(): Promise<Location[]>;
 
     getLocation(id: number): Promise<Location>;
@@ -57,6 +60,9 @@ export default interface DataSource {
 
     deleteLocation(id: number): void;
 
-    getAllDepartmentsInLocation(): void;
+    getAllDepartmentsInLocation(locationId: number): Promise<Department[]>;
+
+    addDepartmentsToLocation(departmentId: number, locationId: number):void;
+
 
 }
