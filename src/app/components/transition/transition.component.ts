@@ -3,6 +3,8 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import DataSourceService from 'src/app/services/datasources';
 import { Department, Employee, Location } from 'src/app/models/entities';
 import { DepartmentEmployee } from 'src/app/models/dto/department-employee';
+import { MatDialog } from '@angular/material/dialog';
+import { RoleDialogComponent } from '../shared/dialogs/role-dialog.component';
 
 
 
@@ -24,6 +26,7 @@ export class TransitionComponent implements OnInit {
 
     constructor(
         private ds: DataSourceService,
+        private editorDialog: MatDialog,
     ) {
         this.locationList = [];
         this.departmentList = [];
@@ -48,16 +51,37 @@ export class TransitionComponent implements OnInit {
                 event.currentIndex,
             );
             const empl = event.container.data[event.currentIndex];
-            if(!event.container.element.nativeElement.className.includes("source")) {
-                this.ds.addEmployeeToTemporalList(empl.id)
-            } else {
-                if(event.previousContainer.element.nativeElement.className.includes("temporal")) {
-                    this.ds.removeEmployeeFromTemporalList(empl.id)
-                    this.ds.removeEmployeeFromDepartment(empl.id)
-                }
-                this.ds.addEmployeeToDepartment(empl.id, this.department.id, "employee")
-            }
-            
+            const listId = event.container.element.nativeElement.id
+            const prevListId = event.previousContainer.element.nativeElement.id
+
+            switch(listId) {
+                case 'list-department':
+                    const dialogRef = this.editorDialog.open(RoleDialogComponent)
+                    dialogRef.afterClosed().subscribe(role => {
+                        if(!!role) {
+                            if(prevListId === 'list-temporal') {
+                                this.ds.removeEmployeeFromTemporalList(empl.id)
+                                this.ds.removeEmployeeFromDepartment(empl.id)
+                            }
+                            this.ds.addEmployeeToDepartment(empl.id, this.department.id, role)
+                        } else {
+                            transferArrayItem(                                
+                                event.container.data,
+                                event.previousContainer.data,
+                                event.currentIndex,
+                                event.previousIndex,
+                            );
+                        }
+                        
+                    })
+                    
+                    break
+                case 'list-temporal':
+                    this.ds.addEmployeeToTemporalList(empl.id)
+                    break
+                case 'list-not-assigned':
+                    break
+            }            
         }
     }
 

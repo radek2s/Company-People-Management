@@ -21,6 +21,7 @@ import { DepartmentEmployeeSelectorDialogComponent } from './components/departme
 import { TransitionComponent } from './components/transition/transition.component';
 import { HttpClientModule } from '@angular/common/http';
 import { SidebarComponent } from './components/layout/sidebar/sidebar.component';
+import { RoleDialogComponent } from './components/shared/dialogs/role-dialog.component';
 
 
 
@@ -34,6 +35,7 @@ import { SidebarComponent } from './components/layout/sidebar/sidebar.component'
     HomeComponent,
     EmployeesComponent,
     EmployeeInfoCardComponent,
+    RoleDialogComponent,
     EmployeeCreatorDialogComponent,
     DepartmentsComponent,
     DepartmentInfoCardComponent,

@@ -189,10 +189,16 @@ export class IndexedDBDataSource implements DataSource {
     addEmployeeToDepartment(employeeId: number, departmentId: number, role: EmployeeRole): void {
         const t = this.db.transaction(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, DbAccessType.READWRITE);
         const store = t.objectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY);
-        const req = store.add({employeeId, departmentId, joined: new Date(), left: null, role});
+        const time = new Date()
+        const req = store.add({ employeeId, departmentId, joined: new Date(), left: null, role, joinTimestamp: time.getTime() });
         req.onsuccess = () => {
-            console.log("Department deleted");
+            console.log("Added Employee to Department");
         }
+        req.onerror = (e: any) => {
+            console.log(e)
+            console.warn("Failed to adding Employee to Department")
+        }
+
     }
 
     removeEmployeeFromDepartment(employeeId: number) {
@@ -365,11 +371,11 @@ export class IndexedDBDataSource implements DataSource {
         }
         if (!this.db.objectStoreNames.contains(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY)) {
             console.log("Creating object store Employees-Sites");
-            this.db.createObjectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, { keyPath: ["employeeId", "departmentId"] });
+            this.db.createObjectStore(SCHEMAS.EMPLOYEES_DEPARTMENTS_ACTIVITY, { keyPath: ["employeeId", "departmentId", "joinTimestamp"] });
         }
         if (!this.db.objectStoreNames.contains(SCHEMAS.DEPARTMENTS_LOCATIONS)) {
             console.log("Creating object store Employees-Sites");
-            this.db.createObjectStore(SCHEMAS.DEPARTMENTS_LOCATIONS, { keyPath: "id", autoIncrement: true });
+            this.db.createObjectStore(SCHEMAS.DEPARTMENTS_LOCATIONS, { keyPath: ["departmentId", "locationId"]});
         }
         if (!this.db.objectStoreNames.contains(SCHEMAS.TEMPORAL_LIST)) {
             console.log("Creating object store for TemporalList");
