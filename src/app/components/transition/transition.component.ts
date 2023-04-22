@@ -3,7 +3,7 @@ import {CdkDragDrop, moveItemInArray, transferArrayItem} from '@angular/cdk/drag
 import DataSourceService from 'src/app/services/datasources';
 import { Department, Employee, Location } from 'src/app/models/entities';
 import { DepartmentEmployee } from 'src/app/models/dto/department-employee';
-import { MatDialog } from '@angular/material/dialog';
+import { MatLegacyDialog as MatDialog } from '@angular/material/legacy-dialog';
 import { RoleDialogComponent } from '../shared/dialogs/role-dialog.component';
 
 

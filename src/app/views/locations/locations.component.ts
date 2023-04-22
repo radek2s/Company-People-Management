@@ -1,6 +1,6 @@
 
 import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 import { LocationCreatorDialogComponent } from "src/app/components/locations/location-creator.component";
 import { Location } from "src/app/models/entities";
 import DataSourceService from "src/app/services/datasources";

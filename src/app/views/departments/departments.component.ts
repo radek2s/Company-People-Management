@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 import { DepartmentCreatorDialogComponent } from "src/app/components/department/department-creator.component";
 import { Department } from "src/app/models/entities";
 import DataSourceService from "src/app/services/datasources";

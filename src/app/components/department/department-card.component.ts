@@ -1,10 +1,10 @@
 import { Component, EventEmitter, Input, Output } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 import { DepartmentEmployee } from "src/app/models/dto/department-employee";
 import { Department, Employee } from "src/app/models/entities";
 import DataSourceService from "src/app/services/datasources";
 import { DepartmentEmployeeSelectorDialogComponent } from "./department-employee.component";
-import {MatTableDataSource} from '@angular/material/table';
+import {MatLegacyTableDataSource as MatTableDataSource} from '@angular/material/legacy-table';
 
 
 

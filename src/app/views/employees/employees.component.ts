@@ -1,5 +1,5 @@
 import { Component, OnInit } from "@angular/core";
-import { MatDialog } from "@angular/material/dialog";
+import { MatLegacyDialog as MatDialog } from "@angular/material/legacy-dialog";
 import { EmployeeCreatorDialogComponent } from "src/app/components/employee/employee-creator.component";
 import { Employee } from "src/app/models/entities";
 
